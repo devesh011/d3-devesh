@@ -14,18 +14,16 @@ export default function Footer() {
 
   const startX = useRef(0);
   const footerRef = useRef(null);
-
-  // ✅ Replace with this
   const year = new Date().getFullYear();
 
-  /* ================= WHATSAPP LINK ================= */
+  /* -WHATSAPP LINK -*/
   const getWhatsAppLink = () => {
     const message =
       "Hey Devesh, I checked out your portfolio—really liked your work! Would love to connect 🚀";
     return `https://wa.me/918141864929?text=${encodeURIComponent(message)}`;
   };
 
-  /* ================= EDGE SWIPE ================= */
+  /* -EDGE SWIPE -*/
   const onEdgeTouchStart = (
     e: React.TouchEvent<HTMLDivElement>,
     edge: string,
@@ -41,7 +39,7 @@ export default function Footer() {
     if (side === "right" && diffX < -60) setOpen(true);
   };
 
-  /* ================= SCROLL CLOSE ================= */
+  /* -SCROLL CLOSE -*/
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
@@ -57,7 +55,7 @@ export default function Footer() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [open]);
 
-  /* ================= FOOTER VISIBILITY ================= */
+  /* -FOOTER VISIBILITY -*/
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -77,7 +75,7 @@ export default function Footer() {
 
   return (
     <>
-      {/* ================= FOOTER ================= */}
+      {/* -FOOTER -*/}
       <footer
         ref={footerRef}
         className="w-full pt-2 pb-10 relative"
@@ -93,7 +91,7 @@ export default function Footer() {
             Open to new ideas, collaborations, or just a quick chat.
           </p>
 
-          {/* 🔥 SCROLL TO TOP */}
+          {/* SCROLL TO TOP */}
           {showTop && (
             <div className="mt-5 flex justify-center">
               <button
@@ -114,7 +112,7 @@ export default function Footer() {
         </div>
       </footer>
 
-      {/* ================= DESKTOP SOCIAL ================= */}
+      {/* -DESKTOP SOCIAL -*/}
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-4">
         {socialMedia.map((info) => {
           const link = info.link === "whatsapp" ? getWhatsAppLink() : info.link;
@@ -142,7 +140,7 @@ export default function Footer() {
         })}
       </div>
 
-      {/* ================= EDGE SWIPE ================= */}
+      {/* -EDGE SWIPE -*/}
       <div
         className="fixed left-0 top-0 h-full md:hidden z-9999"
         style={{ width: EDGE }}
@@ -157,7 +155,7 @@ export default function Footer() {
         onTouchMove={onEdgeTouchMove}
       />
 
-      {/* ================= MOBILE SIDEBAR ================= */}
+      {/* -MOBILE SIDEBAR -*/}
       <div
         className={`fixed top-1/2 -translate-y-1/2 md:hidden z-9999
         transition-transform duration-300

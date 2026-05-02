@@ -17,7 +17,7 @@ const Hero = () => {
 
   const formRef = useRef(null);
 
-  /* ================= SCROLL LOCK + NAVBAR HIDE ================= */
+  /* -SCROLL LOCK + NAVBAR HIDE -*/
   useEffect(() => {
     const navbar = document.getElementById("navbar");
 
@@ -35,7 +35,7 @@ const Hero = () => {
     };
   }, [open]);
 
-  /* ================= CLOSE MODAL ================= */
+  /* -CLOSE MODAL -*/
   const handleClose = () => {
     if (isDirty) {
       toast.custom(() => (
@@ -55,16 +55,18 @@ const Hero = () => {
     setIsDirty(false);
   };
 
-  /* ================= SEND EMAIL ================= */
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  /* -SEND EMAIL -*/
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formRef.current) {
-      toast.error("Form reference not found");
-      return;
-    }
+    if (!formRef.current) return;
 
-    setLoading(true); // ✅ START loading
+    setLoading(true);
+
+    const formData = new FormData(formRef.current);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const message = formData.get("message");
 
     const toastId = toast.loading("Sending message...", {
       style: {
@@ -74,53 +76,53 @@ const Hero = () => {
       },
     });
 
-    emailjs
-      .sendForm(
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      // SEND EMAIL (keep EmailJS)
+      await emailjs.sendForm(
         "service_ihqwm6r",
         "template_z6mv89k",
         formRef.current,
         "ayUrdo2AsLGLkwQuQ",
-      )
-      .then(
-        () => {
-          toast.dismiss(toastId);
-          setLoading(false); // ✅ STOP loading
-
-          toast.custom(() => (
-            <div className="bg-[#04071d] border border-purple-500/30 shadow-lg shadow-purple-500/20 text-white px-6 py-4 rounded-2xl flex items-center gap-4">
-              <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-              <div>
-                <p className="font-semibold text-purple-300">
-                  Message Sent Successfully
-                </p>
-                <p className="text-sm text-gray-400">
-                  Thanks for reaching out 🚀
-                </p>
-              </div>
-            </div>
-          ));
-
-          (e.target as HTMLFormElement).reset();
-          setIsDirty(false);
-          setOpen(false);
-        },
-        () => {
-          toast.dismiss(toastId);
-          setLoading(false); // ✅ STOP loading
-
-          toast.custom(() => (
-            <div className="bg-[#04071d] border border-red-500/30 text-white px-6 py-4 rounded-2xl flex items-center gap-4">
-              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-              <div>
-                <p className="font-semibold text-red-300">
-                  Failed to Send Message
-                </p>
-                <p className="text-sm text-gray-400">Please try again later</p>
-              </div>
-            </div>
-          ));
-        },
       );
+
+      toast.dismiss(toastId);
+      setLoading(false);
+      toast.custom(() => (
+        <div className="bg-[#04071d] border border-purple-500/30 shadow-lg shadow-purple-500/20 text-white px-6 py-4 rounded-2xl flex items-center gap-4">
+          <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+          <div>
+            <p className="font-semibold text-purple-300">
+              Message Sent Successfully
+            </p>
+            <p className="text-sm text-gray-400">Thanks for reaching out 🚀</p>
+          </div>
+        </div>
+      ));
+
+      (e.target as HTMLFormElement).reset();
+      setIsDirty(false);
+      setOpen(false);
+    } catch {
+      toast.dismiss(toastId);
+      setLoading(false);
+      toast.custom(() => (
+        <div className="bg-[#04071d] border border-red-500/30 text-white px-6 py-4 rounded-2xl flex items-center gap-4">
+          <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+          <div>
+            <p className="font-semibold text-red-300">Failed to Send Message</p>
+            <p className="text-sm text-gray-400">Please try again later</p>
+          </div>
+        </div>
+      ));
+    }
   };
 
   const [showContent, setShowContent] = useState(false);
@@ -168,7 +170,7 @@ const Hero = () => {
 
           {/* Buttons */}
           <div className="flex gap-4 w-full max-w-lg">
-            <a href="#about" className="flex-1">
+            <a href="#projects" className="flex-1">
               <MagicButton
                 title="View My Work"
                 icon={<FaCode />}
@@ -190,7 +192,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ================= MODAL ================= */}
+      {/* -MODAL -*/}
       {open && (
         <div
           className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-9999"
