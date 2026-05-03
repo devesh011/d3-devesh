@@ -135,6 +135,15 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto open modal if ?action=contact in URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("action") === "contact") {
+      window.history.replaceState(null, "", "/");
+      setTimeout(() => setOpen(true), 0);
+    }
+  }, []);
+
   return (
     <div className="pb-15 pt-36" id="home">
       <Toaster position="top-right" />
