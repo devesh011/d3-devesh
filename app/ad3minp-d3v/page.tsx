@@ -356,24 +356,17 @@ export default function AdminPage() {
             Messages from your portfolio
           </p>
         </div>
-        <div
-          onClick={() => {
-            localStorage.removeItem("admin");
-            router.push("/");
+        <MagicButton
+          title="Logout"
+          icon={null}
+          position="right"
+          handleClick={() => {
+            localStorage.removeItem("admin_token");
+            localStorage.removeItem("admin_refresh");
+            router.push("/ad3minp-login");
           }}
-        >
-          <MagicButton
-            title="Logout"
-            icon={null}
-            position="right"
-            handleClick={() => {
-              localStorage.removeItem("admin_token");
-              localStorage.removeItem("admin_refresh");
-              router.push("/ad3minp-login");
-            }}
-            containerClass="w-full sm:w-auto"
-          />
-        </div>
+          containerClass="w-full sm:w-auto"
+        />
       </div>
 
       {/* TABS */}
