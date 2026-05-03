@@ -87,10 +87,10 @@ const Hero = () => {
 
       // SEND EMAIL (keep EmailJS)
       await emailjs.sendForm(
-        "service_ihqwm6r",
-        "template_z6mv89k",
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         formRef.current,
-        "ayUrdo2AsLGLkwQuQ",
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       );
 
       toast.dismiss(toastId);
