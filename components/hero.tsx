@@ -144,6 +144,18 @@ const Hero = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("scroll") === "projects") {
+      setTimeout(() => {
+        document
+          .getElementById("projects")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 1000);
+      window.history.replaceState(null, "", "/");
+    }
+  }, []);
+
   return (
     <div className="pb-15 pt-36" id="home">
       <Toaster position="top-right" />

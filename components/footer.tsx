@@ -148,6 +148,15 @@ export default function Footer() {
         onTouchMove={onEdgeTouchMove}
       />
 
+      {/*ADD THIS HERE */}
+      {open && (
+        <div
+          className="fixed inset-0 z-9998 md:hidden"
+          onTouchStart={() => setOpen(false)}
+          onClick={() => setOpen(false)}
+        />
+      )}
+
       <div
         className="fixed right-0 top-0 h-full md:hidden z-9999"
         style={{ width: EDGE }}
