@@ -10,13 +10,13 @@
   "categories": ["portfolio", "developer"],
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/maskable-icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/maskable-icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
@@ -42,15 +42,29 @@
   "shortcuts": [
     {
       "name": "Projects",
-      "url": "/#projects",
+      "url": "/?scroll=projects",
       "description": "View my projects",
-      "icons": [{ "src": "/maskable-icon-96x96.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/maskable-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     },
     {
       "name": "Contact",
       "url": "/?action=contact",
       "description": "Get in touch",
-      "icons": [{ "src": "/maskable-icon-96x96.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/maskable-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     }
   ]
 }
