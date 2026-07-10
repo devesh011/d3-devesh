@@ -26,11 +26,11 @@ const RecentProjects = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data?.length) {
-          setProjects(data); // ✅ DB projects
+          setProjects(data); // DB projects
         } else if (fallbackProjects?.length) {
-          setProjects(fallbackProjects); // ✅ fallback from data/index.ts
+          setProjects(fallbackProjects); // fallback from data/index.ts
         } else {
-          setProjects([]); // ✅ empty → shows "coming soon"
+          setProjects([]); //empty → shows "coming soon"
         }
         setLoading(false);
       })
@@ -40,7 +40,7 @@ const RecentProjects = () => {
       });
   }, []);
 
-  // ✅ loading UI
+  //loading UI
   if (loading) {
     return (
       <div className="py-20 text-center">
@@ -50,7 +50,7 @@ const RecentProjects = () => {
     );
   }
 
-  // ✅ empty state
+  // empty state
   if (!projects.length) {
     return (
       <div className="py-20 text-center" id="projects">
@@ -76,7 +76,7 @@ const RecentProjects = () => {
       <div className="flex flex-wrap items-center justify-center p-4 gap-x-24 gap-y-8 mt-2">
         {projects.map((item: Project, index: number) => (
           <div
-            key={item._id || item.id || index} // ✅ safe key
+            key={item._id || item.id || index} //safe key
             className="sm:h-164 lg:min-h-130 h-128 flex items-center justify-center sm:w-142.5 w-[80vw]"
           >
             <PinContainer title={item.title} href={item.link}>
